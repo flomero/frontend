@@ -1,7 +1,6 @@
 import { getList, update } from '../actions.js';
 import L from 'leaflet'
 import axios from 'axios';
-import moment from 'moment';
 
 import { baseConfig } from '../config.js';
 const fetchConfig = (ctx) => {
@@ -30,37 +29,26 @@ const mutations = {
     
     setList(state, val) {
 
-        const icon = L.icon({
-            iconUrl: require('leaflet/dist/images/marker-icon.png'),
-            iconSize: [20, 35],
-         })
-
-        val.forEach((demo) => {
-            demo.latLng = L.latLng(demo.lat, demo.lng);
-            demo.icon = icon;
-            demo.zeit = moment(demo.zeit).format('YYYY-MM-DDTHH:mm:ss');
-        });
-
         state.list = val;
     } 
 };
 
 const actions = {
-    getList: getList('demo'),
+    getList: getList('demopropaganda'),
     create(context, model) {
 
         return axios
-            .post('http://5.230.142.193/api/demo', model, fetchConfig(context))
+            .post('http://5.230.142.193/api/demopropaganda', model, fetchConfig(context))
             .then((response) => {
 
-                context.dispatch('getList', true);
+                // console.log(context, model, response)
             });
     },
-    update: update('demo'),
+    update: update('demopropaganda'),
     delete(context, model) {
         
         return axios
-            .delete('http://5.230.142.193/api/demo/' + model.id, fetchConfig(context))
+            .delete('http://5.230.142.193/api/demopropaganda/' + model.id, fetchConfig(context))
             .then((response) => {
 
                 // console.log(context, model, response)

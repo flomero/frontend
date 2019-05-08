@@ -1,5 +1,5 @@
 <template>
-  <div class="fff-signin">
+  <div class="fff-signin main-container">
     <form v-if="!signinSuccess">
       <div>
         <input class="fff-signin__input fff-input"
@@ -30,8 +30,6 @@ export default {
     return {
       model: {
         email: null,
-        name: null,
-        ortsgruppe_id: null,
         password: null,
       },
       signinSuccess: false,
@@ -50,12 +48,9 @@ export default {
       e.preventDefault();
 
       this.$store.dispatch('signin', this.model)
-        .then((response) => {
-          console.log(response);
-        })
+        .then(() => this.$router.push('demos'))
         .catch((err) => {
           console.log(err);
-          this.$router.push('demos');
         });
     },
   },
